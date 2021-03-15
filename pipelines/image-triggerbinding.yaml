@@ -1,0 +1,12 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: image-triggerbinding
+spec:
+  params:
+    - name: image-name
+      value: $(body.metadata.name)
+    - name: image-reference
+      value: $(body.dockerImageReference)
+    - name: event-type
+      value: $(header.Ce-Type)

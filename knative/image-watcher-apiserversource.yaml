@@ -1,0 +1,12 @@
+apiVersion: sources.knative.dev/v1
+kind: ApiServerSource
+metadata:
+  name: image-watcher
+spec:
+  mode: Resource
+  resources:
+    - apiVersion: image.openshift.io/v1
+      kind: Image
+  serviceAccountName: image-watcher
+  sink:
+    uri: http://el-image-eventlistener:8080

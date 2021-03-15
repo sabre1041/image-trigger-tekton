@@ -1,0 +1,13 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: image-eventlistener
+spec:
+  serviceAccountName: pipeline
+  replicas: 2
+  triggers:
+    - bindings:
+        - ref: image-triggerbinding
+      name: print-image
+      template:
+        name: "print-image-template"

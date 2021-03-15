@@ -1,0 +1,27 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: print-image-template
+spec:
+  params:
+    - description: Image Name
+      name: image-name
+    - description: Image Reference
+      name: image-reference
+    - description: Event Type
+      name: event-type
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: print-image-
+      spec:
+        params:
+          - name: image-name
+            value: $(tt.params.image-name)
+          - name: image-reference
+            value: $(tt.params.image-reference)
+          - name: event-type
+            value: $(tt.params.event-type)
+        pipelineRef:
+          name: print-image

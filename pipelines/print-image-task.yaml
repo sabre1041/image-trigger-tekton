@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: print-image
+spec:
+  params:
+    - description: Name of the Image
+      name: image-name
+      type: string
+    - description: Image Reference
+      name: image-reference
+      type: string
+    - description: Type of Event
+      name: event-type
+      type: string
+  steps:
+    - args:
+        - |-
+          echo "Event Type: $(params.event-type)"
+          echo "Image Name: $(params.image-name)"
+          echo "Image Reference: $(params.image-reference)"
+      command:
+        - /bin/bash
+        - "-c"
+      image: "image-registry.openshift-image-registry.svc:5000/openshift/cli:latest"
+      name: print-image
+      resources: {}

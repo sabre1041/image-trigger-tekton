@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: print-image
+spec:
+  params:
+    - description: Name of the Image
+      name: image-name
+      type: string
+    - description: Image Reference
+      name: image-reference
+      type: string
+    - description: Name of the Image
+      name: event-type
+      type: string
+  tasks:
+    - name: print-image
+      params:
+        - name: image-name
+          value: $(params.image-name)
+        - name: image-reference
+          value: $(params.image-reference)
+        - name: event-type
+          value: $(params.event-type)
+      taskRef:
+        kind: Task
+        name: print-image
